@@ -1,0 +1,31 @@
+.card {
+  margin: 12px;
+  padding: 8px;
+  display: flex;
+  background-color: white;
+}
+
+.image-container {
+  margin: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.desc-container {
+  border: gainsboro 1px solid;
+  background-color: gainsboro;
+  margin: 6px;
+  padding: 12px;
+  font-size: 16px;
+  color: black;
+}
+
+.card, .desc-container {
+  border-radius: 5px;
+}
+
+.image {
+  width: 40vw;
+  max-width: 360px;
+}
+
