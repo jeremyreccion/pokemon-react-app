@@ -20,7 +20,8 @@ export const PokedexProvider: FC<Props> = ({ children }) => {
       const requests = pokemons.map(name => getPokemon(name));
       const _pokemonList = await Promise.all(requests);
 
-      setPokemonList(_pokemonList);
+      // if invalid name, response is null
+      setPokemonList(_pokemonList.filter((item) => item !== null));
     };
 
     getPokemons("Charizard", "Venusaur");
