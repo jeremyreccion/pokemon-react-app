@@ -1,34 +1,28 @@
-import { createContext, FC, useEffect, useState } from "react";
+import { createContext, FC } from "react";
 import { getPokemon } from "../utils/requests";
 import { Pokemon } from "./PokemonType";
-
-interface PokedexContext {
-  pokemonList: Pokemon[];
-}
 
 interface Props {
   children: any;
 }
 
+interface PokedexContext {
+  getPokemons: (...pokemons: string[]) => Promise<Pokemon[]>;
+}
+
 export const Context = createContext<PokedexContext>({} as PokedexContext);
 
 export const PokedexProvider: FC<Props> = ({ children }) => {
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const getPokemons = async (...pokemons: string[]) => {
+    const requests = pokemons.map((name) => getPokemon(name));
+    const list = await Promise.all(requests);
 
-  useEffect(() => {
-    const getPokemons = async (...pokemons: string[]) => {
-      const requests = pokemons.map(name => getPokemon(name));
-      const _pokemonList = await Promise.all(requests);
-
-      // if invalid name, response is null
-      setPokemonList(_pokemonList.filter((item) => item !== null));
-    };
-
-    getPokemons("Charizard", "Venusaur");
-  }, []);
+    // if invalid name, response is null
+    return list.filter((item) => item !== null);
+  };
 
   return (
-    <Context.Provider value={{ pokemonList }}>
+    <Context.Provider value={{ getPokemons }}>
       {children}
     </Context.Provider>
   );

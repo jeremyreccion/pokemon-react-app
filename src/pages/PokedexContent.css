@@ -4,6 +4,20 @@
   justify-content: space-evenly;
 }
 
+.message {
+  margin: 30px;
+  padding: 12px 64px;
+}
+
+.message.error {
+  border-radius: 10px;
+  background-color: #ff0000af;
+}
+
+.message.error:hover {
+  cursor: pointer;
+}
+
 @media (max-width: 640px) {
   .content {
     flex-direction: column-reverse;
